@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        input[type=text],
+        input[type=password],
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 6px;
+            margin-bottom: 16px;
+            resize: vertical;
+        }
+
+        input[type=button] {
+            background-color: #04AA6D;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type=button]:hover {
+            background-color: #45a049;
+        }
+
+        .container {
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+    </style>
+    <script>
+        /*
+        자바스크립트는 프로그래밍 언어이고 html은 프로그래밍 언어가 아니므로
+        사실 js가 html을 직접적으로 제어할 수는 없음.
+        ㄸ라서 html 요소들을 제어하기위해 모든 태그요소마다 1대1로 대응하는 돔객체가 지원됨
+        따라서 js는 html문서를 직접 제어했던 것이 아닌 돔객체를 통해 간접적으로 html요소들을 제어했던 것임
+
+        DOM document object model
+        문서 내의 모든 tag 요소들에 대해 1:1대응하는 모델을 객체화시켜놓은것
+        */
+        function checkValue() {
+            //아이디에 대한 유효성 체크
+            let id = document.getElementById("id");
+            let pass = document.getElementById("pass");
+            let pass2 = document.getElementById("pass2");
+
+
+            if (id.value == "") {
+                alert("ID를입력해라");
+                id.focus();
+            } else if (pass.value == "") {
+                alert("비번을입력해라");
+                pass.focus();
+            } else if (pass.value != pass2.value) {
+                alert("비번이일치하지않음");
+                pass.focus();
+            }
+        }
+
+        //주민번호 뒷자리의 첫자가 1이면 남자에 체크 2이면 여자에 체크
+        function checkGender(){
+            //console.log("키보드손떼");
+            //주민번호 뒷문자열을ㄹ 대상으로 제일 첫번째 철자
+            let jumin2=document.getElementById("jumin2");
+            let result=jumin2.value.charAt(0); //charAt(index); >>문자열의 index값에 있는 문자를 추출하는 메서드다
+            console.log("앞자는", result);
+
+            let g=document.getElementsByName("gender");
+            
+            if(result=="1"){ //남자
+                console.log("남");
+                g[0].checked=true;
+            }else if(result=="2"){ //여자임
+                console.log("여");
+                g[1].checked=true;
+            }else{
+                g[0].checked=false;
+                g[1].checked=false;
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+    <h3>Contact Form</h3>
+
+    <div class="container">
+        <form action="/action_page.php">
+            <div>
+                <input type="text" id="id" name="id" placeholder="Your 아이디..">
+            </div>
+            <div>
+                <input type="password" id="pass" name="pass" placeholder="Your 비번..">
+            </div>
+            <div>
+                <input type="password" id="pass2" placeholder="Your 비번 체크..">
+            </div>
+            <div>
+                <input type="text" id="jumin1" name="jumin1" maxlength="6" placeholder="주민번호앞..">
+                <input type="text" id="jumin2" name="jumin2" maxlength="7" placeholder="주민번호뒤.." onKeyUp="checkGender()">
+            </div>
+            <div>
+                남<input type="radio" name="gender" value="남">
+                여<input type="radio" name="gender" value="여">
+            </div>
+            <div>
+                게임<input type="checkbox">
+                여행<input type="checkbox">
+                운동<input type="checkbox">
+                맛집<input type="checkbox">
+            </div>
+
+            <div>
+                <input type="text" style="width:45%">@
+                <select style="width:45%">
+                    <option value="">이메일선택</option>
+                    <option value="">구글</option>
+                    <option value="">네이버</option>
+                    <option value="">다음</option>
+                    <option value="">직접입력</option>
+                </select>
+            </div>
+
+
+            <input type="button" value="Submit" onClick="checkValue()">
+        </form>
+    </div>
+
+</body>
+
+</html>
